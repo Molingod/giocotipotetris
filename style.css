@@ -1,0 +1,44 @@
+body {
+    text-align: center;
+}
+
+table {
+    border: 1px solid gray;
+    /*width: 33.33333%;*/
+    width: 21%;
+    height: 130px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+td {
+    max-height: 75px;
+    width: 75px;
+    background-color: aliceblue;
+    /*background-color: #98c9f4;*/
+}
+
+span {
+    margin-left: 27%;
+    display:inline-flex;
+}
+
+img {
+    margin-top: 2.5%;
+    max-height: 50px;
+    max-width: 50px;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+#i0 {
+    margin-right: 5%;
+    max-height: 25px;
+    max-width: 25px;
+}
+
+#i2 {
+    margin-left: 50px;
+}
