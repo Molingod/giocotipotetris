@@ -260,8 +260,10 @@ function cancellaRiga(x) {
             contatore = 0;
             for (j=0; j<3; j++) {
                 for (z=0; z<3; z++) {
-                    if (i+j == x)
+                    if (i+j == x) {
                         punti[i+j][temp+z] = 0;
+                        document.getElementById("t" + (i+j) + (temp+z)).style = "background-color: aliceblue;";
+                    }
                 }
             }
             temp+=3;
