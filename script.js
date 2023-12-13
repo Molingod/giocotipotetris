@@ -204,6 +204,22 @@ function controllaVittoria() {
         if (contatore == 9)
             cancella(i);
     }
+
+    for (i=0; i<9; i+=3) {
+        temp = 0;
+        for (q=0; q<3; q++) {
+            contatore = 0;
+            for (j=0; j<3; j++) {
+                for (z=0; z<3; z++) {
+                    punti[i+j][temp+z] == 1 ? contatore++ : "";
+                }
+                if (contatore == 9) 
+                    cancellaRiga(i+j);
+            }
+            
+        temp+=3;
+        }
+    }
 }
 
 function controllaFormeDisponibili() {
@@ -236,3 +252,19 @@ function cancella(x) {
     punteggio+=9;
     document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 }
+
+function cancellaRiga(x) {
+    for (i=0; i<9; i+=3) {
+        temp = 0;
+        for (q=0; q<3; q++) {
+            contatore = 0;
+            for (j=0; j<3; j++) {
+                for (z=0; z<3; z++) {
+                    if (i+j == x)
+                        punti[i+j][temp+z] = 0;
+                }
+            }
+            temp+=3;
+        }
+    }
+} 
