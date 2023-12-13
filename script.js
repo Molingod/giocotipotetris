@@ -215,8 +215,21 @@ function controllaVittoria() {
                 }
             }
             if (contatore == 9) 
-                cancellaRiga(i + q);
+                cancellaRigaOrizzontale(i + q);
             temp+=3;
+        }
+    }
+
+    for (i=0; i<3; i++) {
+        for (q=0; q<3; q++) {
+            contatore = 0;
+            for (j=0; j<9; j+=3) {
+                for (z=0; z<9; z+=3) {
+                    punti[i+j][z+q] == 1 ? contatore++ : "";
+                }
+            }
+            if (contatore == 9) 
+                cancellaRigaVerticale(i*3 + q);
         }
     }
 }
@@ -252,7 +265,7 @@ function cancella(x) {
     document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 }
 
-function cancellaRiga(x) {
+function cancellaRigaOrizzontale(x) {
     for (i=0; i<9; i+=3) {
         temp = 0;
         for (q=0; q<3; q++) {
@@ -266,7 +279,28 @@ function cancellaRiga(x) {
                     }
                 }
             }
+            temp+=3;
         }
-        temp+=3;
     }
+
+    punteggio+=9;
+    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
+} 
+
+function cancellaRigaVerticale(x) {
+    for (i=0; i<3; i++) {
+        for (q=0; q<3; q++) {
+            if (i*3 + q == x) {
+                for (j=0; j<9; j+=3) {
+                    for (z=0; z<9; z+=3) {
+                        punti[i+j][z+q] = 0;
+                        document.getElementById("t" + (i+j) + (z+q)).style = "background-color: aliceblue;";
+                    }
+                }
+            }
+        }
+    }
+
+    punteggio+=9;
+    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 } 
