@@ -213,11 +213,10 @@ function controllaVittoria() {
                 for (z=0; z<3; z++) {
                     punti[i+j][temp+z] == 1 ? contatore++ : "";
                 }
-                if (contatore == 9) 
-                    cancellaRiga(i+j);
             }
-            
-        temp+=3;
+            if (contatore == 9) 
+                cancellaRiga(i + q);
+            temp+=3;
         }
     }
 }
@@ -257,16 +256,17 @@ function cancellaRiga(x) {
     for (i=0; i<9; i+=3) {
         temp = 0;
         for (q=0; q<3; q++) {
-            contatore = 0;
-            for (j=0; j<3; j++) {
-                for (z=0; z<3; z++) {
-                    if (i+j == x) {
+            //val = 0;
+            //x == q + i ? val++ : val = 0; 
+            if (i + q == x) {
+                for (j=0; j<3; j++) {
+                    for (z=0; z<3; z++) {
                         punti[i+j][temp+z] = 0;
                         document.getElementById("t" + (i+j) + (temp+z)).style = "background-color: aliceblue;";
                     }
                 }
             }
-            temp+=3;
         }
+        temp+=3;
     }
 } 
