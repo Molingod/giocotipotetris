@@ -34,11 +34,18 @@ function generaTabella() {
     }
 
     document.body.append(br);
+    numeri = [];
     for (i=0; i<3; i++) {
+        do {
+            var num = Math.floor(Math.random()*4)+1;
+        } while (numeri.includes(num));
+
         img = document.createElement("img");
         img.setAttribute("onclick", "attivazione("+i+")");
-        img.src = "img/b" + (i+1) + ".png";
+        img.src = "img/b" + (num) + ".png";
         img.id = "i" + i;
+
+        numeri.push(num);
         
         document.body.append(img);
     }
@@ -124,6 +131,30 @@ function colora(x, y) {
 
             } else precedente = "";
             break;
+        case "4":
+            if (x.charAt(1) > 2 || x.charAt(2) > 5) {
+                temp = [];
+
+                if (x.charAt(2) > 2)
+                    temp.push("t" + x.charAt(1) + (x.charAt(2)-3));
+                else temp.push("t" + (x.charAt(1)-3) + (6 + parseInt(x.charAt(2))));
+                
+                if (x.charAt(2) > 5)
+                    temp.push("t" + x.charAt(1) + (x.charAt(2)-6));
+                else temp.push("t" + (x.charAt(1)-3) + (3 + parseInt(x.charAt(2))));
+                
+                vet2 = punti[temp[0].charAt(1)];
+                vet3 = punti[temp[1].charAt(1)];
+                if (vet[x.charAt(2)] == 1 || vet2[temp[0].charAt(2)] == 1 || vet3[temp[1].charAt(2)] == 1) {
+                    precedente = "";
+                } else {
+                    document.getElementById(x).style = "background-color: #98c9f4";
+                    document.getElementById(temp[0]).style = "background-color: #98c9f4";
+                    document.getElementById(temp[1]).style = "background-color: #98c9f4";
+                    precedente = x + " " + temp[0] + " " + temp[1];
+                }
+            } else precedente = "";
+            break;
         default:
             alert("non implementato");
             break;
@@ -151,25 +182,39 @@ function piazza(x, y) {
     tipoForma = document.getElementById("i" + y).src.split("/");
     tipoForma = tipoForma[tipoForma.length-1].charAt(1);
 
-    temp = "";
+    temp = [];
     if (tipoForma == 2) {
         if (x.charAt(2) > 2)
-            temp = "t" + x.charAt(1) + (x.charAt(2)-3);
-        else temp = "t" + (x.charAt(1)-3) + (6 + parseInt(x.charAt(2)));
+            temp.push("t" + x.charAt(1) + (x.charAt(2)-3));
+        else temp.push("t" + (x.charAt(1)-3) + (6 + parseInt(x.charAt(2))));
     } else if (tipoForma == 3) {
         if (x.charAt(2) % 3 != 2)
-            temp = "t" + x.charAt(1) + (parseInt(x.charAt(2))+1);
-        else temp = "t" + (x.charAt(1) % 3 != 2 ? parseInt(x.charAt(1))+1 : null) + (parseInt(x.charAt(2))-2);
+            temp.push("t" + x.charAt(1) + (parseInt(x.charAt(2))+1));
+        else temp.push("t" + (x.charAt(1) % 3 != 2 ? parseInt(x.charAt(1))+1 : null) + (parseInt(x.charAt(2))-2));
+    } else if (tipoForma == 4) {
+        if (x.charAt(1) > 2 || x.charAt(2) > 5) {
+            if (x.charAt(2) > 2)
+                temp.push("t" + x.charAt(1) + (x.charAt(2)-3));
+            else temp.push("t" + (x.charAt(1)-3) + (6 + parseInt(x.charAt(2))));
+                    
+            if (x.charAt(2) > 5)
+                temp.push("t" + x.charAt(1) + (x.charAt(2)-6));
+            else temp.push("t" + (x.charAt(1)-3) + (3 + parseInt(x.charAt(2))));
+        } else temp.push("tnull");
     }
-
-    vet = punti[x.charAt(1)];
-    if (temp)
-        vet2 = punti[temp.charAt(1)];
-
-    if (vet[x.charAt(2)] == 0 && (temp ? vet2[temp.charAt(2)] == 0 : true)) {
+    
+    if (temp.length > 0)
+        vet2 = punti[temp[0].charAt(1)];
+    if (temp.length > 1)
+        vet3 = punti[temp[1].charAt(1)];
+    
+    if (vet[x.charAt(2)] == 0 && (temp.length > 0 ? vet2[temp[0].charAt(2)] == 0 : true) && (temp.length > 1 ? vet3[temp[1].charAt(2)] == 0 : true)) {
         vet[x.charAt(2)] = 1;
-        if (temp)
-            vet2[temp.charAt(2)] = 1;
+        
+        if (temp.length > 0)
+            vet2[temp[0].charAt(2)] = 1; 
+        if (temp.length > 1)
+            vet3[temp[1].charAt(2)] = 1;
 
         precedente = "";
         document.getElementById("i" + y).src = "img/d"+(y+1)+".png";
@@ -269,11 +314,21 @@ function controllaFormeDisponibili() {
 }
 
 function rifornisciForme() {
+    numeri = [];
     for (i=0; i<3; i++) {
+        do {
+            var num = Math.floor(Math.random()*4)+1;
+        } while (numeri.includes(num));
+
+        img = document.getElementById("i" + i);
+        img.setAttribute("onclick", "attivazione("+i+")");
+        img.src = "img/b" + (num) + ".png";
+        img.style = "cursor:pointer";
         forme[i] = 0;
-        document.getElementById("i" + i).src = "img/b"+(i+1)+".png";
-        document.getElementById("i" + i).setAttribute("onclick", "attivazione("+i+")");
-        document.getElementById("i" + i).style = "cursor: pointer";
+
+        numeri.push(num);
+        
+        document.body.append(img);
     }
 }
 
