@@ -195,6 +195,8 @@ function riempiVettore() {
 }
 
 function controllaVittoria() {
+    cancellazioni = [];
+
     for (i=0; i<9; i++) {
         contatore = 0;
         vet = punti[i];
@@ -202,7 +204,7 @@ function controllaVittoria() {
             if (vet[j] == 1)
                 contatore++;
         if (contatore == 9)
-            cancella(i);
+            cancellazioni.push("b" + i);
     }
 
     for (i=0; i<9; i+=3) {
@@ -214,8 +216,8 @@ function controllaVittoria() {
                     punti[i+j][temp+z] == 1 ? contatore++ : "";
                 }
             }
-            if (contatore == 9) 
-                cancellaRigaOrizzontale(i + q);
+            if (contatore == 9)
+                cancellazioni.push("o" + (i + q))
             temp+=3;
         }
     }
@@ -229,7 +231,24 @@ function controllaVittoria() {
                 }
             }
             if (contatore == 9) 
-                cancellaRigaVerticale(i*3 + q);
+                cancellazioni.push("v" + (i*3 + q))
+        }
+    }
+
+    for (i=0; i<cancellazioni.length; i++) {
+        tipo = cancellazioni[i].charAt(0);
+        switch(tipo) {
+            case "b":
+                cancella(cancellazioni[i].charAt(1));
+                break;
+            case "o":
+                cancellaRigaOrizzontale(cancellazioni[i].charAt(1));
+                break;
+            case "v":
+                cancellaRigaVerticale(cancellazioni[i].charAt(1));
+                break;
+            default:
+                alert("errore");
         }
     }
 }
