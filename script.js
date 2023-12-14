@@ -234,8 +234,8 @@ function controllaVittoria() {
                 cancellazioni.push("v" + (i*3 + q))
         }
     }
-
-    for (i=0; i<cancellazioni.length; i++) {
+    
+    for (let i=0; i<cancellazioni.length; i++) {
         tipo = cancellazioni[i].charAt(0);
         switch(tipo) {
             case "b":
@@ -251,6 +251,10 @@ function controllaVittoria() {
                 alert("errore");
         }
     }
+
+    //prendi più punti in case alla combo
+    punteggio+=parseInt(9*cancellazioni.length*(1 + parseFloat(cancellazioni.length/10)));
+    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 }
 
 function controllaFormeDisponibili() {
@@ -279,9 +283,6 @@ function cancella(x) {
         vet[i] = 0;
         document.getElementById("t" + x + i).style = "background-color: aliceblue";
     }
-
-    punteggio+=9;
-    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 }
 
 function cancellaRigaOrizzontale(x) {
@@ -301,9 +302,6 @@ function cancellaRigaOrizzontale(x) {
             temp+=3;
         }
     }
-
-    punteggio+=9;
-    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 } 
 
 function cancellaRigaVerticale(x) {
@@ -319,7 +317,4 @@ function cancellaRigaVerticale(x) {
             }
         }
     }
-
-    punteggio+=9;
-    document.getElementById("h2").innerHTML = "Punteggio: " + punteggio;
 } 
